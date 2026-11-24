@@ -56,6 +56,8 @@ def write_line(line, folder):
         landed = handle.read()
     if hashlib.sha256(landed).hexdigest() != hashlib.sha256(blob).hexdigest():
         raise RuntimeError("entry.txt does not match the line after writing")
+    if landed.decode("utf-8") != line:
+        raise RuntimeError("entry.txt decodes to different text than the line")
     return path, len(blob)
 
 
